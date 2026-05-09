@@ -97,7 +97,9 @@ export const useFilterStore = create<FilterStoreState>((set, get) => ({
 
 	setFilters: (routeKey: string, filters: Partial<FilterState>) => {
 		set((state) => {
-			const currentFilters = (state.filtersByRoute[routeKey] ?? loadFromSession(routeKey) ?? {}) as FilterState;
+			const currentFilters: FilterState = Object.fromEntries(
+				Object.entries(state.filtersByRoute[routeKey] ?? loadFromSession(routeKey) ?? {}).filter(([, v]) => v !== undefined)
+			) as FilterState;
 			const cleanedFilters: FilterState = Object.fromEntries(
 				Object.entries(filters).filter(([, v]) => v !== undefined)
 			) as FilterState;
