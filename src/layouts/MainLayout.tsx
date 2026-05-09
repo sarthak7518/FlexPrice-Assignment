@@ -64,7 +64,7 @@ const MainLayout: React.FC = () => {
 			<Sidebar />
 			{/* Right Layout */}
 			<SidebarInset className='flex flex-col flex-1 bg-white h-screen relative'>
-				<BreadCrumbs />
+				<BreadCrumbs items={[]} />
 				<RestrictedEnvBanner />
 				{/* Main Content */}
 				<main className='flex-1 px-4 relative overflow-y-auto '>
