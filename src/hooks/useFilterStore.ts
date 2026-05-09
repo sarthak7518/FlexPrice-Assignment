@@ -84,7 +84,7 @@ export const useFilterStore = create<FilterStoreState>((set, get) => ({
 	setFilter: (routeKey, key, value) => {
 		set((state) => {
 			const currentFilters = state.filtersByRoute[routeKey] ?? loadFromSession(routeKey) ?? {};
-			const updated = { ...currentFilters, [key]: value };
+			const updated: FilterState = { ...currentFilters, [key]: value };
 			saveToSession(routeKey, updated);
 			return {
 				filtersByRoute: {
@@ -95,13 +95,13 @@ export const useFilterStore = create<FilterStoreState>((set, get) => ({
 		});
 	},
 
-	setFilters: (routeKey, filters) => {
+	setFilters: (routeKey: string, filters: Partial<FilterState>) => {
 		set((state) => {
 			const currentFilters = state.filtersByRoute[routeKey] ?? loadFromSession(routeKey) ?? {};
-			const cleanedFilters = Object.fromEntries(
+			const cleanedFilters: FilterState = Object.fromEntries(
 				Object.entries(filters).filter(([, v]) => v !== undefined)
-			);
-			const updated = { ...currentFilters, ...cleanedFilters } as FilterState;
+			) as FilterState;
+			const updated: FilterState = { ...currentFilters, ...cleanedFilters };
 			saveToSession(routeKey, updated);
 			return {
 				filtersByRoute: {
@@ -137,7 +137,7 @@ export const useFilterStore = create<FilterStoreState>((set, get) => ({
  * Sync the fingerprint to the URL search params.
  * Call this in a useEffect to keep the URL in sync.
  */
-export function syncFingerprintToUrl(routeKey: string, fingerprint: number): void {
+export function syncFingerprintToUrl(_routeKey: string, fingerprint: number): void {
 	const url = new URL(window.location.href);
 	if (fingerprint > 0) {
 		url.searchParams.set('fc', String(fingerprint));
