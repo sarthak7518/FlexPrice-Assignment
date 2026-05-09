@@ -1,7 +1,6 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { TrendingUp, TrendingDown } from 'lucide-react';
-import Spinner from '@/components/atoms/Spinner/Spinner';
 
 /**
  * ## MetricCard

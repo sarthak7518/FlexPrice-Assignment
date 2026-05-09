@@ -34,7 +34,7 @@ const FilterDemo: React.FC = () => {
 	}, []);
 
 	useEffect(() => {
-		syncFingerprintToUrl(ROUTE_KEY, fingerprint);
+		syncFingerprintToUrl(fingerprint);
 	}, [fingerprint]);
 
 	const statuses = ['paid', 'draft', 'overdue', 'finalized', 'void'];

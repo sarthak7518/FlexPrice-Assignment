@@ -2,7 +2,6 @@ import React, { useState, useMemo, useRef, useCallback } from 'react';
 import { cn } from '@/lib/utils';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { ArrowUp, ArrowDown, ArrowUpDown, ChevronLeft, ChevronRight } from 'lucide-react';
-import Spinner from '@/components/atoms/Spinner/Spinner';
 
 /**
  * ## DataTable

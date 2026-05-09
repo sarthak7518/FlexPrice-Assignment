@@ -15,13 +15,13 @@ export interface BreadCrumbItem {
 }
 
 export interface BreadCrumbsProps {
-	items: BreadCrumbItem[];
+	items?: BreadCrumbItem[];
 	separator?: React.ReactNode;
 	className?: string;
 }
 
 const BreadCrumbs: React.FC<BreadCrumbsProps> = ({
-	items,
+	items = [],
 	separator = <ChevronRight className='size-3.5 text-muted-foreground mx-1' />,
 	className,
 }) => {
