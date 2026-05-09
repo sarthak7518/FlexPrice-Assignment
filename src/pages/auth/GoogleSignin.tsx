@@ -14,7 +14,7 @@ const GoogleSignin = () => {
 			const { data, error } = await supabase.auth.signInWithOAuth({
 				provider: 'google',
 				options: {
-					redirectTo: siteUrl + RouteNames.signupConfirmation,
+					redirectTo: siteUrl + RouteNames.home,
 					queryParams: {},
 					// Define the scopes for Google OAuth
 					scopes: 'email profile',

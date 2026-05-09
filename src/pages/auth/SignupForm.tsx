@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, Input } from '@/components/atoms';
 import toast from 'react-hot-toast';
-import supabase from '@/core/services/supbase/config';
 import AuthApi from '@/api/AuthApi';
 import { useMutation } from '@tanstack/react-query';
 import { EyeOff } from 'lucide-react';
@@ -34,8 +33,6 @@ const SignupForm: React.FC<SignupFormProps> = ({ switchTab }) => {
 		confirmPassword: '',
 	});
 
-	const [isLoading, setIsLoading] = useState(false);
-
 	useEffect(() => {
 		if (queryEmail) {
 			setSignupData({ ...signupData, email: queryEmail });
@@ -54,19 +51,15 @@ const SignupForm: React.FC<SignupFormProps> = ({ switchTab }) => {
 			});
 		},
 		onSuccess: (data) => {
-			if (NODE_ENV != NodeEnv.SELF_HOSTED) {
-				toast.success('Account created successfully! Please check your email to confirm your account.');
-				switchTab(AuthTab.LOGIN);
-			} else {
-				// Store token in a consistent format
-				const tokenData = {
-					token: data.token,
-					user_id: data.user_id,
-					tenant_id: data.tenant_id,
-				};
-				localStorage.setItem('token', JSON.stringify(tokenData));
-				navigate(RouteNames.home);
-			}
+			// Store token in a consistent format
+			const tokenData = {
+				token: data.token,
+				user_id: data.user_id,
+				tenant_id: data.tenant_id,
+			};
+			localStorage.setItem('token', JSON.stringify(tokenData));
+			toast.success('Account created successfully!');
+			navigate(RouteNames.home);
 		},
 
 		onError: (error: ServerError) => {
@@ -114,21 +107,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ switchTab }) => {
 			return;
 		}
 		if (NODE_ENV != NodeEnv.SELF_HOSTED) {
-			setIsLoading(true);
-			const { error } = await supabase.auth.signUp({
-				email: signupData.email,
-				password: signupData.password,
-				options: {
-					emailRedirectTo: `${window.location.origin}${RouteNames.signupConfirmation}`,
-				},
-			});
-			setIsLoading(false);
-
-			if (error) {
-				toast.error(error.message || 'Something went wrong');
-				return;
-			}
-			navigate(`/auth/verify-email?email=${encodeURIComponent(signupData.email)}&new=true`);
+			signup();
 		} else {
 			signup();
 		}
@@ -182,7 +161,7 @@ const SignupForm: React.FC<SignupFormProps> = ({ switchTab }) => {
 						</span>
 					}
 				/>
-				<Button onClick={handleSignup} className='w-full !mt-6 h-11' isLoading={isSignupPending || isLoading}>
+				<Button onClick={handleSignup} className='w-full !mt-6 h-11' isLoading={isSignupPending}>
 					Create Account
 				</Button>
 			</div>

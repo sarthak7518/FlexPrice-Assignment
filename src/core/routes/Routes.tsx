@@ -8,9 +8,6 @@ import { Loader } from '@/components/atoms';
 import {
 	// Auth pages
 	Auth,
-	SignupConfirmation,
-	ResendVerification,
-	EmailVerification,
 	// Customer pages
 	CustomerListPage as CustomerPage,
 	Subscriptions as SubscriptionsPage,
@@ -104,9 +101,6 @@ export const RouteNames = {
 	home: '/',
 	login: '/login',
 	auth: '/auth',
-	signupConfirmation: '/auth/signup/confirmation',
-	resendVerification: '/auth/resend-verification',
-	verifyEmail: '/auth/verify-email',
 
 	// Dashboard routes
 	homeDashboard: '/home',
@@ -209,18 +203,6 @@ export const MainRouter: any = createBrowserRouter([
 	{
 		path: RouteNames.auth,
 		element: <Auth />,
-	},
-	{
-		path: RouteNames.signupConfirmation,
-		element: <SignupConfirmation />,
-	},
-	{
-		path: RouteNames.resendVerification,
-		element: <ResendVerification />,
-	},
-	{
-		path: RouteNames.verifyEmail,
-		element: <EmailVerification />,
 	},
 	{
 		path: RouteNames.customerPortal,
