@@ -5,11 +5,12 @@ import * as Sentry from '@sentry/react';
 interface Props {
 	children: React.ReactNode;
 }
-const isProd = import.meta.env.VITE_APP_ENVIRONMENT === 'prod';
+const sentryDsn = import.meta.env.VITE_APP_PUBLIC_SENTRY_DSN;
+const isProd = import.meta.env.VITE_APP_ENVIRONMENT === 'prod' && Boolean(sentryDsn);
 
 if (isProd) {
 	Sentry.init({
-		dsn: import.meta.env.VITE_APP_PUBLIC_SENTRY_DSN,
+		dsn: sentryDsn,
 		integrations: [Sentry.browserTracingIntegration()],
 		tracesSampleRate: 1.0,
 		replaysSessionSampleRate: 0,
